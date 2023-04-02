@@ -46,227 +46,32 @@
       var isClose=true;
         const stopwords = ["of", "the", "a", "an", "any", "is", "can", "who", "what", "why", "whom"];
         var editor = "sorts\n" +
-                "   #item ={hydrogen,helium,lithium,beryllium,boron,carbon,nitrogen,oxygen,\n" +
-                "               fluorine,neon,sodium,magnesium,aluminium,silicon,phosphorous,sulphur,\n" +
-                "               chlorine,argon,potassium,calcium}.\n" +
-                "   #symbols = {h,he,li,be,b,c,n,o,f,ne,na,mg,al,si,p,s,cl,ar,k,ca}.\n" +
-                "   #num = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,\n" +
-                "               23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40}.\n" +
-                "\n" +
-                "\n" +
-                "predicates\n" +
-                "        symbolOf(#item,#symbols). % symbolOf(X,Y) denotes Y is the symbol of X.\n" +
-                "        atomicMass(#symbols,#num).% atomicMass(X,Y) denotes Y is the atomic mass of %element 'X'\n" +
-                "        protonOf(#symbols,#num). %prontOf(X, Y) denotes Y is the number of protons in an %element 'X'\n" +
-                "        atomicNum(#symbols,#num). %atomicOf(X,Y) denotes Y is the atomic number of %element 'X '\n" +
-                "        electronOf(#symbols,#num).%electronOf(X, Y) denotes Y is the number of electron in an %element 'X'\n" +
-                "        neutronOf(#symbols,#num).%neutronOf(X, Y) denotes Y is the number of neutron in an %element 'X'\n" +
-                "        ve(#symbols,#num).% ve(X,Y) denotes Y is the number of valence electron in an %electron 'X'\n" +
-                "        group1(#symbols).% group1(X) denotes Y element on group1.\n" +
-                "        group2(#symbols).% group2(X) denotes Y element on group2.\n" +
-                "        group3(#symbols).% group3(X) denotes Y element on group3.\n" +
-                "        group4(#symbols).% group5(X) denotes Y element on group4.\n" +
-                "        group5(#symbols).% group5(X) denotes Y element on group5.\n" +
-                "        group6(#symbols).% group6(X) denotes Y element on group6.\n" +
-                "        group7(#symbols).% group7(X) denotes Y element on group7.\n" +
-                "        group8(#symbols).% group8(X) denotes Y element on group8.\n" +
-                "        \n" +
-                "\n" +
-                "\n" +
-                "rules\n" +
-                "         %Symbols\n" +
-                "         % h is the symbol of hydrogen.\n" +
-                "        symbolOf(hydrogen, h).\n" +
-                "         % he is the symbol of helium.\n" +
-                "        symbolOf(helium, he).\n" +
-                "         % li is the symbol of lithium.\n" +
-                "        symbolOf(lithium, li).\n" +
-                "         % be is the symbol of beryllium.\n" +
-                "        symbolOf(beryllium, be).\n" +
-                "         % b is the symbol of boron.\n" +
-                "        symbolOf(boron, b).\n" +
-                "         % c is the symbol of carbon.\n" +
-                "        symbolOf(carbon, c).\n" +
-                "         % n is the symbol of nitrogen.\n" +
-                "        symbolOf(nitrogen, n).\n" +
-                "         % o is the symbol of oxygen.\n" +
-                "        symbolOf(oxygen, o).\n" +
-                "         % f is the symbol of fluorine.\n" +
-                "        symbolOf(fluorine, f).\n" +
-                "         % ne is the symbol of neon.\n" +
-                "        symbolOf(neon, ne).\n" +
-                "         % na is the symbol of sodium.\n" +
-                "        symbolOf(sodium, na).\n" +
-                "         % mg is the symbol of magnesium.\n" +
-                "        symbolOf(magnesium, mg).\n" +
-                "         % al is the symbol of aluminium.\n" +
-                "        symbolOf(aluminium, al).\n" +
-                "         % si is the symbol of silicon.\n" +
-                "        symbolOf(silicon, si).\n" +
-                "         % p is the symbol of phosphorous.\n" +
-                "        symbolOf(phosphorous, p).\n" +
-                "         % s is the symbol of sulphur.\n" +
-                "        symbolOf(sulphur, s).\n" +
-                "         % cl is the symbol of chlorine.\n" +
-                "        symbolOf(chlorine, cl).\n" +
-                "         % ar is the symbol of argon.\n" +
-                "        symbolOf(argon, ar).\n" +
-                "         % k is the symbol of potassium.\n" +
-                "        symbolOf(potassium, k).\n" +
-                "         % ca is the symbol of calcium.\n" +
-                "        symbolOf(calcium, ca).\n" +
-                "% Proton Number\n" +
-                "        protonOf(h, 1).\n" +
-                "        % proton number of helium is 4.\n" +
-                "        protonOf(he, 2).\n" +
-                "        % proton number of lithium is 7.\n" +
-                "        protonOf(li, 3).\n" +
-                "        % proton number of beryllium is 9.\n" +
-                "        protonOf(be, 4).\n" +
-                "        % proton number of boron is 11.\n" +
-                "        protonOf(b, 5).\n" +
-                "        % proton number of carbon is 12.\n" +
-                "        protonOf(c, 6).\n" +
-                "        % proton number of nitrogen is 14.\n" +
-                "        protonOf(n, 7).\n" +
-                "        % proton number of oxygen is 16.\n" +
-                "        protonOf(o, 8).\n" +
-                "        % proton number of fluorine is 19.\n" +
-                "        protonOf(f, 9).\n" +
-                "        %proton number of neon is 20.\n" +
-                "        protonOf(ne, 10).\n" +
-                "        %proton number of sodium is 23.\n" +
-                "        protonOf(na, 11).\n" +
-                "        % proton number of magnesium is 24.\n" +
-                "        protonOf(mg, 12).\n" +
-                "        % proton number of aluminium is 27.\n" +
-                "        protonOf(al, 13).\n" +
-                "        %proton number of silicon is 28.\n" +
-                "        protonOf(si, 14).\n" +
-                "        % proton number of phosphorus is 31.\n" +
-                "        protonOf(p, 15).\n" +
-                "        % proton number of sulphur is 32.\n" +
-                "        protonOf(s, 16).\n" +
-                "        % proton number of chlorine is 35.\n" +
-                "        protonOf(cl, 17).\n" +
-                "        % proton number of argon is 40.\n" +
-                "        protonOf(ar, 18).\n" +
-                "        % proton number of potassium is 30.\n" +
-                "        protonOf(k, 19).    \n" +
-                "        % proton number of calcium is 40.\n" +
-                "        protonOf(ca, 20).         \n" +
-                "    \n" +
-                "            %Atomic Mass\n" +
-                "         % Atomic mass of hydrogen is 0.\n" +
-                "        atomicMass(h, 1).\n" +
-                "         % Atomic mass of helium is 4.\n" +
-                "        atomicMass(he, 4).\n" +
-                "        % Atomic mass of lithium is 7.\n" +
-                "        atomicMass(li, 7).\n" +
-                "        % Atomic mass of beryllium is 9.\n" +
-                "        atomicMass(be, 9).\n" +
-                "        % Atomic mass of boron is 11.\n" +
-                "        atomicMass(b, 11).\n" +
-                "        % Atomic mass of carbon is 12.\n" +
-                "        atomicMass(c, 12).\n" +
-                "        % Atomic mass of nitrogen is 14.\n" +
-                "        atomicMass(n, 14).\n" +
-                "        % Atomic mass of oxygen is 16.\n" +
-                "        atomicMass(o, 16).\n" +
-                "        % Atomic mass of fluorine is 19.\n" +
-                "        atomicMass(f, 19).\n" +
-                "        % Atomic mass of neon is 20.\n" +
-                "        atomicMass(ne, 20).\n" +
-                "        % Atomic mass of sodium is 23.\n" +
-                "        atomicMass(na, 23).\n" +
-                "        % Atomic mass of magnesium is 24.\n" +
-                "        atomicMass(mg, 24).\n" +
-                "        % Atomic mass of aluminium is 27.\n" +
-                "        atomicMass(al, 27).\n" +
-                "        % Atomic mass of silicon is 28.\n" +
-                "        atomicMass(si, 28).\n" +
-                "        % Atomic mass of phosphorus is 31.\n" +
-                "        atomicMass(p, 31).\n" +
-                "        % Atomic mass of sulphur is 32.\n" +
-                "        atomicMass(s, 32).\n" +
-                "        % Atomic mass of chlorine is 35.\n" +
-                "        atomicMass(cl, 35).\n" +
-                "        % Atomic mass of argon is 40.\n" +
-                "        atomicMass(ar, 40).\n" +
-                "        % Atomic mass of potassium is 30.\n" +
-                "        atomicMass(k, 30).    \n" +
-                "        % Atomic mass of calcium is 40.\n" +
-                "        atomicMass(ca, 40).\n" +
-                "        % group\n" +
-                "        % lithium belongs to group1.\n" +
-                "        group1(li).\n" +
-                "        %sodium belongs to group1.\n" +
-                "        group1(na).\n" +
-                "        %potassium belongs to group1.\n" +
-                "        group1(k).\n" +
-                "        %beryllium belongs to group2.\n" +
-                "        group2(be).\n" +
-                "        %magnesium belongs to group2.\n" +
-                "        group2(mg).\n" +
-                "        %calcium belongs to group2.\n" +
-                "        group2(ca).\n" +
-                "        %boron belongs to group3.\n" +
-                "        group3(b).\n" +
-                "        %aluminium belongs to group3.\n" +
-                "        group3(al).\n" +
-                "        %carbon belongs to group4.\n" +
-                "        group4(c).\n" +
-                "        %silicon belongs to group4.\n" +
-                "        group4(si).\n" +
-                "        %nitrogen belongs to group5.\n" +
-                "        group5(n).\n" +
-                "        %phosphorous belongs to group5.\n" +
-                "        group5(p).\n" +
-                "        %oxygen belongs to group6.\n" +
-                "        group6(o).\n" +
-                "        %sulphur belongs to group6.\n" +
-                "        group6(s).\n" +
-                "        %fluorine belongs to group7.\n" +
-                "        group7(f).\n" +
-                "        %chlorine belongs to group7.\n" +
-                "        group7(cl).\n" +
-                "        %helium belongs to group8.\n" +
-                "        group8(he).\n" +
-                "        %neon belongs to group8.\n" +
-                "        group8(ne).\n" +
-                "        %argon belongs to group8.\n" +
-                "        group8(ar).\n" +
-                "\n" +
-                "\n" +
-                "\n" +
-                "\n" +
-                "        % Y is the atomic number in 'X' element if Y is the proton number of 'X' element.\n" +
-                "        atomicNum(X,Y) :-protonOf(X,Y).\n" +
-                "\n" +
-                "\n" +
-                "        % Y is the number of electron in 'X' element if Y is the proton number of 'X' element.\n" +
-                "        electronOf(X,Y):-protonOf(X,Y).\n" +
-                "\n" +
-                "\n" +
-                "        % Y is the number of neutron in X element if atomic number of X element S is\n" +
-                "        % subtracted from atomic mass of X element Z.\n" +
-                "        neutronOf(X,Y):- atomicMass(X,S),atomicNum(X,Z), Y=S-Z.\n" +
-                "        %X has valence electron 1 if it belongs to group1.\n" +
-                "        ve(X,Y):-group1(X),Y=1.\n" +
-                "        %X has valence electron 2 if it belongs to group2.\n" +
-                "        ve(X,Y):-group2(X),Y=2.\n" +
-                "        %X has valence electron 3 if it belongs to group3.\n" +
-                "        ve(X,Y):-group3(X),Y=3.\n" +
-                "        %X has valence electron 4 if it belongs to group4.\n" +
-                "        ve(X,Y):-group4(X),Y=4.\n" +
-                "        %X has valence electron 5 if it belongs to group5.\n" +
-                "        ve(X,Y):-group5(X),Y=5.\n" +
-                "        %X has valence electron 6 if it belongs to group6.\n" +
-                "        ve(X,Y):-group6(X),Y=6.\n" +
-                "        %X has valence electron 7 if it belongs to group7.\n" +
-                "        ve(X,Y):-group7(X),Y=7.\n" +
-                "        %X has valence electron 8 or 0 if it belongs to group8.\n" +
-                "        ve(X,Y):-group8(X),Y=8.";
+            "    #item = {hydrogen,helium,lithium,beryllium,boron,carbon,nitrogen,oxygen,fluorine,neon,"
+                        +"sodium,magnesium,aluminium,silicon,phosphorous,sulphur,chlorine,argon,potassium,calcium}.\n" +
+            "    #symbols = {h,he,li,be,b,c,n,o,f,ne,na,mg,al,si,p,s,cl,ar,k,ca}.\n" +
+            "predicates\n" +
+            "    symbolOf(#item,#symbols).\n" +
+            "rules\n" +
+            "    symbolOf(hydrogen, h).\n" +
+            "    symbolOf(helium, he).\n" +
+            "    symbolOf(lithium, li).\n" +
+            "    symbolOf(beryllium, be).\n" +
+            "    symbolOf(boron, b).\n" +
+            "    symbolOf(carbon, c).\n" +
+            "    symbolOf(nitrogen, n).\n" +
+            "    symbolOf(oxygen, o).\n" +
+            "    symbolOf(fluorine, f).\n" +
+            "    symbolOf(neon, ne).\n" +
+            "    symbolOf(sodium, na).\n" +
+            "    symbolOf(magnesium, mg).\n" +
+            "    symbolOf(aluminium, al).\n" +
+            "    symbolOf(silicon, si).\n" +
+            "    symbolOf(phosphorous, p).\n" +
+            "    symbolOf(sulphur, s).\n" +
+            "    symbolOf(chlorine, cl).\n" +
+            "    symbolOf(argon, ar).\n" +
+            "    symbolOf(potassium, k).\n" +
+            "    symbolOf(calcium, ca).";
         // sorts
         var contstring = editor.split("sorts\n")[1].split("predicates\n");
         var sortstring = contstring[0].split('.');
