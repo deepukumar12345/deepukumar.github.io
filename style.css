@@ -7,12 +7,12 @@ h1 {
   font-size: 32px;
 }
 
-button {
-  border: none;
+#submit-btn {
   background: none;
-  font-size: 32px;
-  color: #121010;
+  font-size: 22px;
+  color: #b84319;
   cursor: pointer;
+  border-radius: 30px;
 }
 
 button i.fa {

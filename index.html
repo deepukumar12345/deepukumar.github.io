@@ -1,273 +1,172 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <meta charset="utf-8">
-    <title>Simple ASP Website</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script src='//www.aa.com/jquery.js'></script>
-    
+
     <script src="fuzzyset.js"></script>
-
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
-      body {
-        background-image: url('bg.jpg');
-        background-size : 100% auto;
-      }
+    body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
+    .w3-bar,h1,button {font-family: "Montserrat", sans-serif}
+    .navbar{}
+    body {
+      background-image: url('bg.jpg');
+      background-size : 100% auto;
+      background-repeat: repeat;
+    }
 
+    #voice-input-btn
+    {
+      background-color: #00bcd4;
+      border: none;
+      color: white;
+      padding: 10px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      margin: 4px 10px 2px;
+      cursor: pointer;
+      border-radius: 50%;
+      right: 55px;
+      position: relative;
+      width: 40px;
+      bottom: 6px;
+    }
+    #answer-box {
+      border: 1px solid black;
+      padding: 10px;
+      margin-top: 10px;
+    }
 
+    #Pt,#bq,#density{
+    background-image: url('bg.jpg');
+    background-size : 100% auto;
+    padding-bottom:50px;
+    padding-top:50px;
+    }
+    
     </style>
-    <style>
-      #voice-input-btn {
-        background-color: #4CAF50;
-        border: none;
-        color: white;
-        padding: 10px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 16px;
-        margin: 4px 2px;
-        cursor: pointer;
-        border-radius: 50%;
-      }
+  </head>
+<body>
 
-      #answer-box {
-        border: 1px solid black;
-        padding: 10px;
-        margin-top: 10px;
-      }
-    </style>
-    <div style="text-align:center;">
-      <h1 style="color:Tomato;"> The power of AI in Chemistry: Hands-on Learning for students </h1>
-      <h1 >Ask a Question</h1>
-        <h4>Model of question : Aluminium symbol? </h4>
-        
-        <input type="text" id="text-input" placeholder="Hydrogen symbol?">
-        <button id="voice-input-btn"><i class="fa fa-microphone"></i></button>
-        <button id="submit-btn">Submit</button>
-        <div id="answer"></div>
-        <div id="answer-box"></div>
+<!-- Navbar -->
+<div class="w3-top">
+  <nav class="w3-bar w3-red w3-card w3-left-align w3-large">
+    <h1 style="text-align: center">The power of AI in Chemistry: Hands-on Learning for students</h1>
+    <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-red" href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
+    <a href="index.html" class="w3-bar-item w3-button w3-padding-large w3-red w3-hover-white">Home</a>
+    <a href="periodicTable.html" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Periodic Table</a>
+    <a href="balanceEquation.html" class="w3-button w3-bar-item w3-padding-large w3-hover-white">Balance Reaction</a>
+    <a href="density.html" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Density</a>
+  </nav>
+
+</div>
+
+<!-- First Grid -->
+<div id="periodic">
+  <div class="w3-row-padding w3-padding-64 w3-container">
+    <div class="w3-content">
+      <div class="w3-twothird" style="margin-top: 50px">
+        <h1>Periodic Table</h1>
+        <h5 class="w3-padding-32">The periodic table is a tabular array of the chemical elements organized by atomic number, from the element with the lowest atomic number, hydrogen, to the element with the highest atomic number, oganesson. The atomic number of an element is the number of protons in the nucleus of an atom of that element.</h5>
+      </div>
+
+      <div class="w3-third w3-center">
+        <i class="fa fa-peroidic table w3-padding-64 w3-text-red"></i>
+      </div>
     </div>
-      </head>
-      <body>
-        
-        
+  </div>
+</div>
 
-    <script>
-      
-      var isClose=true;
-        const stopwords = ["of", "the", "a", "an", "any", "is", "can", "who", "what", "why", "whom"];
-        var editor = "sorts\n" +
-            "    #item = {hydrogen,helium,lithium,beryllium,boron,carbon,nitrogen,oxygen,fluorine,neon,"
-                        +"sodium,magnesium,aluminium,silicon,phosphorous,sulphur,chlorine,argon,potassium,calcium}.\n" +
-            "    #symbols = {h,he,li,be,b,c,n,o,f,ne,na,mg,al,si,p,s,cl,ar,k,ca}.\n" +
-            "predicates\n" +
-            "    symbolOf(#item,#symbols).\n" +
-            "rules\n" +
-            "    symbolOf(hydrogen, h).\n" +
-            "    symbolOf(helium, he).\n" +
-            "    symbolOf(lithium, li).\n" +
-            "    symbolOf(beryllium, be).\n" +
-            "    symbolOf(boron, b).\n" +
-            "    symbolOf(carbon, c).\n" +
-            "    symbolOf(nitrogen, n).\n" +
-            "    symbolOf(oxygen, o).\n" +
-            "    symbolOf(fluorine, f).\n" +
-            "    symbolOf(neon, ne).\n" +
-            "    symbolOf(sodium, na).\n" +
-            "    symbolOf(magnesium, mg).\n" +
-            "    symbolOf(aluminium, al).\n" +
-            "    symbolOf(silicon, si).\n" +
-            "    symbolOf(phosphorous, p).\n" +
-            "    symbolOf(sulphur, s).\n" +
-            "    symbolOf(chlorine, cl).\n" +
-            "    symbolOf(argon, ar).\n" +
-            "    symbolOf(potassium, k).\n" +
-            "    symbolOf(calcium, ca).";
-        // sorts
-        var contstring = editor.split("sorts\n")[1].split("predicates\n");
-        var sortstring = contstring[0].split('.');
-        sortstring.splice(-1, 1);
-        var sorts = {};
-        sortstring = sortstring.map(d => d.replace(/\n/g, '').trim()).forEach(d => {
-            var par = d.split("=");
-            sorts[par[0].replace(/#/, '').trim()] = par[1].replace(/{|}/g, '').split(',').map(w => w.trim())
-        });
-        // predicates
-        var predicates = {};
-        contstring = contstring[1].split("rules\n");
-        sortstring = contstring[0].split('.');
-        sortstring.splice(-1, 1);
-        sortstring.forEach(d => {
-            var part = d.replace(/\n/g, '').trim().split('(');
-            var func = part[0];
-            predicates[func] = {};
-            var par = part[1].split(',').map(e => e.replace(/#|\)/g, '').trim());
-            var par1 = sorts[par[0]].slice();
-            par1.push("X");
-            par.splice(0, 1);
-            par1.forEach(e => {
-                var strinh = (e == 'X' ? '' : (e + ' ')) + func;
-                predicates[func][strinh] = func + "(" + e + ")";
-                par.forEach(par2 => {
-                    var temp = sorts[par2].slice();
-                    temp.push("X");
-                    temp.forEach(t => {
-                        var strinh = (e == 'X' ? '' : (e + ' ')) + func + (t == 'X' ? '' : (' ' + t));
-                        // if (strinh != fubnc)
-                        predicates[func][strinh] = func + "(" + e + "," + t + ")";
-                    })
-                });
-            });
-        });
+<!-- Second Grid -->
+<div id="Equation">
+  <div class="w3-row-padding w3-padding-64 w3-container">
+    <div class="w3-content">
+      <div class="w3-twothird">
+        <h1>Balancing Equation</h1>
+        <h5 class="w3-padding-32">The periodic table is a tabular array of the chemical elements organized by atomic number, from the element with the lowest atomic number, hydrogen, to the element with the highest atomic number, oganesson. The atomic number of an element is the number of protons in the nucleus of an atom of that element.</h5>
 
 
-        var all_predicates = [];
-        for (var key1 in predicates) {
-            if (predicates.hasOwnProperty(key1)) {
-                for (var key2 in predicates[key1]) {
-                    if (predicates[key1].hasOwnProperty(key2))
-                        all_predicates.push(key2);
-                }
-            }
+      </div>
 
-        }
-        all_predicates.push('speak spanish'); // extra terms
-        a = FuzzySet(all_predicates);
-      
-      console.log(all_predicates)
-      
-      
-      // Speech recognition API
-      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-      const recognition = new SpeechRecognition();
-      recognition.lang = 'en-US';
-
-      // Get DOM elements
-      const answerDiv = document.querySelector('#answer');
-      const voiceBtn = document.getElementById('voice-input-btn');
-      const textInput = document.getElementById('text-input');
-      const submitBtn = document.getElementById('submit-btn');
-      const answerBox = document.getElementById('answer-box');
-
-      submitBtn.addEventListener('click', () => {
-        const question = textInput.value;
-        if (question.trim() === '') {
-          answerBox.innerHTML = 'Please ask a question.';
-          return;
-        }
-        var trim_script = question.split(" ");
-        trim_script = trim_script.filter(f => !stopwords.includes(f));
-        var queryQues = a.get(trim_script.join(" "), null, 0.5); 
-        getAnswer(queryQues);
-        
-      });
-
-      // Handle speech recognition
-      recognition.onresult = event => {
-        const resultIndex = event.resultIndex;
-        const transcript = event.results[resultIndex][0].transcript;
-        textInput.value = transcript;
-        
-        var trim_script = transcript.split(" ");
-        trim_script = trim_script.filter(f => !stopwords.includes(f));
-        var queryQues = a.get(trim_script.join(" "), null, 0.5);
-        console.log(queryQues);
-        getAnswer(queryQues);
-      };
-
-      // Handle click on voice input button     
-      function startSpeechRecognition() {
-        recognition.start();
-      }
-      voiceBtn.addEventListener('click', startSpeechRecognition);
+      <div class="w3-third w3-center">
+        <i class="fa fa-peroidic table w3-padding-64 w3-text-red"></i>
+      </div>
+    </div>
+  </div>
+</div>
 
 
-      function getAnswer(question) {
-        
-        if (question!=null) {
-                var mainkey = question[0][1].replace('speak ','');
-                var answerarr = mainkey.split(' ');
-                var key1 = '';
-                answerarr.forEach(d => {
-                    key1 = (predicates[d] != undefined) ? d : key1;
-                });
-                //var key1 = answerarr.length>2? answerarr[1]:answerarr[0];
-                var key2 = mainkey;
-                console.log(key1 +'-'+ key2);
-                console.log(predicates[key1][key2]);
-                
-                var data = {
-                    'action': "getQuery",
-                    'query': predicates[key1][key2],
-                    'editor': editor
-                };
-          
-          console.log(data)
-          
-          
-          
-          $.ajax({
-          url: "https://cors-anywhere.herokuapp.com/http://wave.ttu.edu/ajax.php",
-          type: "POST",
-          headers: {
-            "X-Requested-With": "XMLHttpRequest"
-          },
-          data: {
-            action: "getQuery",
-            query: predicates[key1][key2],
-            editor: editor
-          },
-          success: function(response) {
-            console.log(response);
-             const answer = response || 'Sorry, I could not find an answer.';
-             answerDiv.innerHTML = answer;
-             answerBox.innerHTML = answer;
-          },
-          error: function(xhr, status, error) {
-            console.log("error: " + error);
-          }
-        });
+<!-- Third Grid -->
+<div id="Density">
+  <div class="w3-row-padding w3-padding-64 w3-container">
+    <div class="w3-content">
+      <div class="w3-twothird">
+        <h1>Density of Elements</h1>
+        <h5 class="w3-padding-32">The periodic table is a tabular array of the chemical elements organized by atomic number, from the element with the lowest atomic number, hydrogen, to the element with the highest atomic number, oganesson. The atomic number of an element is the number of protons in the nucleus of an atom of that element.</h5>
 
 
+      </div>
 
-          
-          //$.post("http://localhost/ajax.php", { url: "http://wave.ttu.edu/" , data:data}, function (response) {
-                // Expected response : answer sets
-                //$.post("http://localhost/ajax/ajax.js",  function (response) {
-                //$.post("http://localhost/ajaxtest.php", function (response) {  
-                 // $.post("https://cors-anywhere.herokuapp.com/http://wave.ttu.edu/", data, function (response) {
-                  
-                   // console.log(response);
-                  
-                  
-                   // var html = document.createElement("html");
-                   // html.innerHTML = response;
-                    // contentRan
-                   // var answerstring = html.querySelector("p").textContent.replace(/X =/gm, "");
-                  //  var answerarr = answerstring.split("\n");
-                  //  answerarr.splice(-1,1);
-                 //   console.log(answerarr);
-                 //   var pre_string = "The answer to your question " + transcript + " is ";
-                 //   answerstring = contentRan.answer[answerarr[0].toLowerCase().trim()]==undefined?
-                 //       (pre_string + (answerarr.length==1?answerstring:(answerarr.splice(-1, 0, "and"),answerarr.join())))
-                 //       : generaspeak(contentRan.answer[answerarr[0].toLowerCase().trim()]);
-                //    console.log(answerstring);
-                  
-                //   const answer = answerstring || 'Sorry, I could not find an answer.';
-               //   answerDiv.innerHTML = answer;
-               //   answerBox.innerHTML = answer;
-               //   console.log(answer);
-                    
-               // });
-            }
-        }
-        
- 
+      <div class="w3-third w3-center">
+        <i class="fa fa-peroidic table w3-padding-64 w3-text-red"></i>
+      </div>
+    </div>
+  </div>
+</div>
 
-    </script>
-  </body>
+<script>
+  // Used to toggle the menu on small screens when clicking on the menu button
+
+  function Home(){
+    var x = document.getElementById("chemistry");
+    x.style.display="block"
+    var x = document.getElementById("periodic");
+    x.style.display="block"
+    var x = document.getElementById("Equation");
+    x.style.display="block"
+    var x = document.getElementById("Density");
+    x.style.display="block";
+
+  }
+
+  /*window.onload = function(){
+    document.getElementById("Pt").style.display="none";
+    document.getElementById("bq").style.display="none";
+    document.getElementById("density").style.display="none";
+    document.getElementById("Periodic").style.display="none";
+    document.getElementById("Equation").style.display="none";
+    document.getElementById("Density").style.display="none";
+  }*/
+
+  function myFunction() {
+
+    var x = document.getElementById("navDemo");
+    if (x.className.indexOf("w3-show") == -1) {
+      x.className += " w3-show";
+    } else {
+      x.className = x.className.replace(" w3-show", "");
+    }
+  }
+
+</script>
+</div>
+</div>
+
+
+</script>
+
+</body>
 </html>
