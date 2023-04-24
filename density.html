@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <script src="fuzzyset.js"></script>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
+        .w3-bar,h1,button {font-family: "Montserrat", sans-serif}
+        .navbar{}
+        body {
+            background-image: url('bg.jpg');
+            background-size : 100% auto;
+            background-repeat: repeat;
+        }
+
+        #voice-input-btn
+        {
+            background-color: #00bcd4;
+            border: none;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            margin: 4px 10px 2px;
+            cursor: pointer;
+            border-radius: 50%;
+            right: 55px;
+            position: relative;
+            width: 40px;
+            bottom: 6px;
+        }
+        #answer-box {
+            border: 1px solid black;
+            padding: 10px;
+            margin-top: 10px;
+        }
+
+        #Pt,#bq,#density{
+            background-image: url('bg.jpg');
+            background-size : 100% auto;
+            padding-bottom:50px;
+            padding-top:50px;
+        }
+
+    </style>
+</head>
+<body>
+<!-- Navbar -->
+<div class="w3-top">
+    <nav class="w3-bar w3-red w3-card w3-left-align w3-large">
+        <h1 style="text-align: center">The power of AI in Chemistry: Hands-on Learning for students</h1>
+        <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-red" href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
+        <a href="index.html" class="w3-bar-item w3-button w3-padding-large w3-red w3-hover-white">Home</a>
+        <a href="periodicTable.html" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Periodic Table</a>
+        <a href="balanceEquation.html" class="w3-button w3-bar-item w3-padding-large w3-hover-white">Balance Reaction</a>
+        <a href="density.html" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Density</a>
+    </nav>
+
+</div>
+
+<div style="text-align:center;">
+    <h1 style="color:Tomato; margin-top: 120px"> Density</h1>
+    <h3 >Ask a Question</h3>
+    <h4>Model of question : Oil density? </h4>
+
+    <input type="text" id="text-input" placeholder="Clay sinks in water?">
+    <button id="voice-input-btn"><i class="fa fa-microphone"></i></button>
+    <button id="submit-btn" type="button" class="btn btn-primary">Submit</button>
+    <div id="answer"></div>
+    <div id="answer-box"></div>
+
+
+
+
+    <script>
+
+        var isClose=true;
+        const stopwords = ["of",,"in", "the", "a", "an", "any", "is", "can", "who", "what", "why", "whom"];
+        var editor = "sorts\n" +
+            "    #object={clay,water,wax,oil,alcohol}.\n" +
+            "    #val = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100}.\n" +
+            "predicates\n" +
+            "    mass_Of(#object,#val).\n" +
+            "    vol_Of(#object,#val).\n" +
+            "    den_Of(#object,#val).\n" +
+            "    has_greater_den(#object,#object).\n" +
+            "    liquid(#object).\n" +
+            "    solid(#object).\n" +
+            "    float(#object,#object).\n" +
+            "    sink(#object,#object).\n" +
+            "rules\n" +
+            "    mass_Of(clay,90).\n" +
+            "    mass_Of(wax,70).\n" +
+            "    mass_Of(water,80).\n" +
+            "    mass_Of(oil, 60).\n" +
+            "    mass_Of(alcohol, 50).\n" +
+            "    vol_Of(clay,10).\n" +
+            "    vol_Of(wax,10).\n" +
+            "    vol_Of(water,10).\n" +
+            "    vol_Of(oil,10).\n" +
+            "    vol_Of(alcohol, 10).\n" +
+            "    liquid(oil).\n" +
+            "    liquid(alcohol).\n" +
+            "    liquid(water).\n" +
+            "    solid(clay).\n" +
+            "    solid(wax).\n" +
+            "    den_Of(X,Y):- mass_Of(X,A),vol_Of(X,B), Y=A/B.\n" +
+            "    has_greater_den(X,Y):- den_Of(X,A),den_Of(Y,B),A>B, X!=Y.\n" +
+            "    float(X,Y) :- den_Of(X,A),den_Of(Y,B), A<B, liquid(Y).\n" +
+            "    float(X,Y) :- den_Of(X,A),den_Of(Y,B), A<B, liquid(Y),liquid(X).\n" +
+            "    sink(X,Y) :- den_Of(X,A),den_Of(Y,B), A>B, liquid(Y).\n" +
+            "    sink(X,Y) :- den_Of(X,A),den_Of(Y,B), A>B, liquid(Y),liquid(X).\n";
+        // sorts
+        var contstring = editor.split("sorts\n")[1].split("predicates\n");
+        var sortstring = contstring[0].split('.');
+        sortstring.splice(-1, 1);
+        var sorts = {};
+        sortstring = sortstring.map(d => d.replace(/\n/g, '').trim()).forEach(d => {
+            var par = d.split("=");
+            sorts[par[0].replace(/#/, '').trim()] = par[1].replace(/{|}/g, '').split(',').map(w => w.trim())
+        });
+        // predicates
+        var predicates = {};
+        contstring = contstring[1].split("rules\n");
+        sortstring = contstring[0].split('.');
+        sortstring.splice(-1, 1);
+        sortstring.forEach(d => {
+            var part = d.replace(/\n/g, '').trim().split('(');
+            var func = part[0];
+            predicates[func] = {};
+            var par = part[1].split(',').map(e => e.replace(/#|\)/g, '').trim());
+            var par1 = sorts[par[0]].slice();
+            par1.push("X");
+            par.splice(0, 1);
+            par1.forEach(e => {
+                var strinh = (e == 'X' ? '' : (e + ' ')) + func;
+                predicates[func][strinh] = func + "(" + e + ")";
+                par.forEach(par2 => {
+                    var temp = sorts[par2].slice();
+                    temp.push("X");
+                    temp.forEach(t => {
+                        var strinh = (e == 'X' ? '' : (e + ' ')) + func + (t == 'X' ? '' : (' ' + t));
+                        // if (strinh != fubnc)
+                        predicates[func][strinh] = func + "(" + e + "," + t + ")";
+                    })
+                });
+            });
+        });
+
+        var all_predicates = [];
+        for (var key1 in predicates) {
+            if (predicates.hasOwnProperty(key1)) {
+                for (var key2 in predicates[key1]) {
+                    if (predicates[key1].hasOwnProperty(key2))
+                        all_predicates.push(key2);
+                }
+            }
+
+        }
+        all_predicates.push('speak spanish'); // extra terms
+        a = FuzzySet(all_predicates);
+
+        console.log(all_predicates)
+
+
+        // Speech recognition API
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        const recognition = new SpeechRecognition();
+        recognition.lang = 'en-US';
+
+        // Get DOM elements
+        const answerDiv = document.querySelector('#answer');
+        const voiceBtn = document.getElementById('voice-input-btn');
+        const textInput = document.getElementById('text-input');
+        const submitBtn = document.getElementById('submit-btn');
+        const answerBox = document.getElementById('answer-box');
+
+        submitBtn.addEventListener('click', () => {
+            const question = textInput.value;
+            if (question.trim() === '') {
+                answerBox.innerHTML = 'Please ask a question.';
+                return;
+            }
+            var trim_script = question.split(" ");
+            trim_script = trim_script.filter(f => !stopwords.includes(f));
+            var queryQues = a.get(trim_script.join(" "), null, 0.5);
+            getAnswer(queryQues);
+
+        });
+
+        // Handle speech recognition
+        recognition.onresult = event => {
+            const resultIndex = event.resultIndex;
+            const transcript = event.results[resultIndex][0].transcript;
+            textInput.value = transcript;
+
+            var trim_script = transcript.split(" ");
+            trim_script = trim_script.filter(f => !stopwords.includes(f));
+            var queryQues = a.get(trim_script.join(" "), null, 0.5);
+            console.log(queryQues);
+            getAnswer(queryQues);
+        };
+
+        // Handle click on voice input button
+        function startSpeechRecognition() {
+            recognition.start();
+        }
+        voiceBtn.addEventListener('click', startSpeechRecognition);
+
+
+        function getAnswer(question) {
+
+            if (question!=null) {
+                var mainkey = question[0][1].replace('speak ','');
+                var answerarr = mainkey.split(' ');
+                var key1 = '';
+                answerarr.forEach(d => {
+                    key1 = (predicates[d] != undefined) ? d : key1;
+                });
+                //var key1 = answerarr.length>2? answerarr[1]:answerarr[0];
+                var key2 = mainkey;
+                console.log(key1 +'-'+ key2);
+                console.log(predicates[key1][key2]);
+
+                var data = {
+                    'action': "getQuery",
+                    'query': predicates[key1][key2],
+                    'editor': editor
+                };
+
+                console.log(data)
+
+
+
+                $.ajax({
+                    url: "https://cors-anywhere.herokuapp.com/http://wave.ttu.edu/ajax.php",
+                    type: "POST",
+                    headers: {
+                        "X-Requested-With": "XMLHttpRequest"
+                    },
+                    data: {
+                        action: "getQuery",
+                        query: predicates[key1][key2],
+                        editor: editor
+                    },
+                    success: function(response) {
+                        console.log(response);
+                        const answer = response || 'Sorry, I could not find an answer.';
+                        answerDiv.innerHTML = answer;
+                        answerBox.innerHTML = answer;
+                    },
+                    error: function(xhr, status, error) {
+                        console.log("error: " + error);
+                    }
+                });
+
+
+
+
+                //$.post("http://localhost/ajax.php", { url: "http://wave.ttu.edu/" , data:data}, function (response) {
+                // Expected response : answer sets
+                //$.post("http://localhost/ajax/ajax.js",  function (response) {
+                //$.post("http://localhost/ajaxtest.php", function (response) {
+                // $.post("https://cors-anywhere.herokuapp.com/http://wave.ttu.edu/", data, function (response) {
+
+                // console.log(response);
+
+
+                // var html = document.createElement("html");
+                // html.innerHTML = response;
+                // contentRan
+                // var answerstring = html.querySelector("p").textContent.replace(/X =/gm, "");
+                //  var answerarr = answerstring.split("\n");
+                //  answerarr.splice(-1,1);
+                //   console.log(answerarr);
+                //   var pre_string = "The answer to your question " + transcript + " is ";
+                //   answerstring = contentRan.answer[answerarr[0].toLowerCase().trim()]==undefined?
+                //       (pre_string + (answerarr.length==1?answerstring:(answerarr.splice(-1, 0, "and"),answerarr.join())))
+                //       : generaspeak(contentRan.answer[answerarr[0].toLowerCase().trim()]);
+                //    console.log(answerstring);
+
+                //   const answer = answerstring || 'Sorry, I could not find an answer.';
+                //   answerDiv.innerHTML = answer;
+                //   answerBox.innerHTML = answer;
+                //   console.log(answer);
+
+                // });
+            }
+        }
+
+
+
+    </script>
+</div>
+</div>
+
+
+</script>
+
+</body>
+</html>
